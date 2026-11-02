@@ -17,7 +17,7 @@
 }
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 110px;
+  scroll-padding-top: 128px;
 }
 body {
   position: relative;
@@ -87,8 +87,8 @@ img {
 }
 .header {
   height: 112px;
-  position: absolute;
   inset: 0 0 auto;
+  background: var(--paper);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -682,7 +682,7 @@ dialog > p:not(.label) {
     --gutter: 6vw;
   }
   html {
-    scroll-padding-top: 30px;
+    scroll-padding-top: 104px;
   }
   .header {
     height: 86px;
@@ -1294,7 +1294,7 @@ dialog > p:not(.label) {
     margin-right: 12px;
   }
   html:not(.menu-ready) .header {
-    position: relative;
+    position: sticky;
     height: auto;
     min-height: 88px;
     flex-wrap: wrap;

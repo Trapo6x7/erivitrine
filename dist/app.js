@@ -83,13 +83,13 @@ $("#back-top").addEventListener("click", () => {
   $(".wordmark").focus({ preventScroll: true });
 });
 // Deux plans dans le document : le texte défile normalement ;
-// Le logo compense 65 % du scroll pour accompagner davantage les expertises.
+// Le logo compense 65 % du scroll, limité aux deux premiers écrans.
 const logoLayer = $(".brand-background img");
 let depthFrame = 0;
 function renderDepth() {
   depthFrame = 0;
   const distance = Math.max(0, scrollY);
-  const compensation = reducedMotion.matches ? 0 : distance * 0.65;
+  const compensation = reducedMotion.matches ? 0 : Math.min(distance, innerHeight * 2) * 0.65;
   logoLayer.style.setProperty("--depth-y", `${compensation.toFixed(2)}px`);
 }
 function requestDepth() {
