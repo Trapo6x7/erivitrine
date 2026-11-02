@@ -114,14 +114,14 @@ img {
 .header nav {
   display: flex;
   align-items: center;
-  gap: 44px;
+  gap: 24px;
 }
 .menu-toggle {
   display: none;
 }
 .header > .theme-toggle {
   margin-left: auto;
-  margin-right: 44px;
+  margin-right: 24px;
 }
 .header nav a {
   font-size: 14px;
@@ -164,7 +164,7 @@ img {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 11px;
+  font-size: 14px;
 }
 .hero-location {
   color: var(--location);
@@ -226,7 +226,7 @@ img {
   grid-template-columns: 1fr 1fr 1fr;
   align-items: end;
   gap: 20px;
-  font-size: 12px;
+  font-size: 14px;
 }
 .hero-baseline p {
   margin: 0;
@@ -239,7 +239,7 @@ img {
   gap: 38px;
   width: fit-content;
   margin: auto;
-  font-size: 12px;
+  font-size: 14px;
   min-height: 44px;
 }
 .explore span {
@@ -250,7 +250,7 @@ img {
   transform: translateY(4px);
 }
 .assistant-trigger {
-  font-size: 12px;
+  font-size: 14px;
   text-align: right;
   justify-self: end;
   min-height: 44px;
@@ -259,7 +259,7 @@ img {
   margin-left: 13px;
 }
 .label {
-  font-size: 10px;
+  font-size: 14px;
   font-weight: 400;
   margin: 0;
   letter-spacing: 0.025em;
@@ -302,8 +302,8 @@ h2 {
 .expertise summary::-webkit-details-marker {
   display: none;
 }
-.number {
-  font-size: 10px;
+.expertise-icon {
+  display: flex;
   align-self: start;
   margin-top: 14px;
 }
@@ -319,7 +319,7 @@ h2 {
   transform: translateX(8px);
 }
 .row-description {
-  font-size: 11px;
+  font-size: 14px;
   color: var(--secondary);
 }
 .toggle {
@@ -359,7 +359,7 @@ h2 {
   margin: 0;
 }
 .expertise-meta {
-  font-size: 12px;
+  font-size: 14px;
 }
 .expertise-meta ul {
   list-style: none;
@@ -401,7 +401,7 @@ h2 {
   max-width: 390px;
 }
 .about-signature {
-  font-size: 11px;
+  font-size: 14px;
   line-height: 1.8;
   align-self: end;
   padding-bottom: 5px;
@@ -419,7 +419,8 @@ h2 {
   margin-top: 56px;
 }
 .contact-title h2 {
-  font-size: clamp(55px, 11vw, 170px);
+  max-width: 13ch;
+  font-size: clamp(40px, 8vw, 120px);
   letter-spacing: -0.075em;
 }
 .contact-title > span {
@@ -436,7 +437,7 @@ h2 {
   grid-template-columns: 1fr 1fr 1fr;
   align-items: start;
   margin-top: 75px;
-  font-size: 13px;
+  font-size: 14px;
   gap: 25px;
 }
 .contact-bottom > a {
@@ -447,7 +448,7 @@ h2 {
 .contact-bottom p {
   margin: 0;
   justify-self: end;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.7;
 }
 .footer {
@@ -458,7 +459,7 @@ h2 {
   gap: 20px;
   padding-top: 25px;
   padding-bottom: 30px;
-  font-size: 10px;
+  font-size: 14px;
 }
 .footer-links {
   display: flex;
@@ -466,7 +467,7 @@ h2 {
   gap: 30px;
 }
 .footer-links button {
-  font-size: 10px;
+  font-size: 14px;
 }
 .footer a:hover,
 .footer button:hover {
@@ -563,7 +564,8 @@ dialog > p:not(.label) {
   padding-block: 25px;
 }
 .message {
-  font-size: 13px;
+  white-space: pre-wrap;
+  font-size: 14px;
   line-height: 1.7;
   max-width: 90%;
   overflow-wrap: anywhere;
@@ -591,7 +593,7 @@ dialog > p:not(.label) {
   padding-bottom: 22px;
 }
 .chat-choices button {
-  font-size: 11px;
+  font-size: 14px;
   text-decoration: underline;
   text-underline-offset: 4px;
   min-height: 36px;
@@ -617,9 +619,14 @@ dialog > p:not(.label) {
   min-width: 36px;
 }
 .chat-note {
-  font-size: 9px;
+  font-size: 14px;
   color: var(--muted);
   margin: 16px 0 0;
+}
+.chat-choices button:disabled,
+#chat-form button:disabled {
+  opacity: 0.5;
+  cursor: wait;
 }
 @keyframes open {
   from {
@@ -665,7 +672,7 @@ dialog > p:not(.label) {
   }
   .contact-bottom {
     grid-template-columns: 1fr 1fr 1fr;
-    font-size: 12px;
+    font-size: 14px;
   }
 }
 @media (min-width: 761px) {
@@ -706,7 +713,7 @@ dialog > p:not(.label) {
     gap: 21px;
   }
   .header nav a {
-    font-size: 11px;
+    font-size: 14px;
   }
   .nav-contact span {
     margin-left: 4px;
@@ -723,7 +730,7 @@ dialog > p:not(.label) {
   }
   .hero-topline {
     display: block;
-    font-size: 12px;
+    font-size: 14px;
   }
   .hero-location {
     display: block;
@@ -797,7 +804,7 @@ dialog > p:not(.label) {
     margin-bottom: 45px;
   }
   .label {
-    font-size: 9px;
+    font-size: 14px;
   }
   .section-intro > .label {
     margin-bottom: 32px;
@@ -816,14 +823,13 @@ dialog > p:not(.label) {
   .expertise h3 {
     font-size: 7.5vw;
   }
-  .number {
-    font-size: 8px;
+  .expertise-icon {
     margin-top: 8px;
   }
   .row-description {
     grid-column: 2;
     grid-row: 2;
-    font-size: 9px;
+    font-size: 14px;
     margin-top: -8px;
   }
   .toggle {
@@ -841,7 +847,7 @@ dialog > p:not(.label) {
   }
   .expertise-meta {
     margin-top: 20px;
-    font-size: 11px;
+    font-size: 14px;
   }
   .expertise-meta ul {
     margin-bottom: 14px;
@@ -869,7 +875,7 @@ dialog > p:not(.label) {
   .about-signature {
     display: block;
     margin-top: 26px;
-    font-size: 10px;
+    font-size: 14px;
   }
   .contact {
     padding-top: 48px;
@@ -889,16 +895,16 @@ dialog > p:not(.label) {
     grid-template-columns: 1fr 1fr;
     margin-top: 40px;
     gap: 18px 10px;
-    font-size: 11px;
+    font-size: 14px;
   }
   .contact-bottom p {
     grid-column: 1;
-    font-size: 10px;
+    font-size: 14px;
     justify-self: start;
     margin-top: 6px;
   }
   .footer {
-    font-size: 8px;
+    font-size: 14px;
     padding-block: 20px;
     flex-wrap: wrap;
     gap: 15px;
@@ -910,7 +916,7 @@ dialog > p:not(.label) {
     gap: 10px;
   }
   .footer-links button {
-    font-size: 8px;
+    font-size: 14px;
   }
   .back-top {
     margin-left: auto;
@@ -935,7 +941,7 @@ dialog > p:not(.label) {
     right: -12px;
   }
   .chat-note {
-    font-size: 8px;
+    font-size: 14px;
   }
 }
 @media (max-width: 360px) {
@@ -943,7 +949,7 @@ dialog > p:not(.label) {
     gap: 13px;
   }
   .header nav a {
-    font-size: 10px;
+    font-size: 14px;
   }
   .wordmark > span {
     font-size: 18px;
@@ -1062,7 +1068,7 @@ dialog > p:not(.label) {
     gap: 12px;
   }
   .header nav a {
-    font-size: 10px;
+    font-size: 14px;
   }
   .wordmark {
     gap: 6px;
@@ -1107,7 +1113,7 @@ dialog > p:not(.label) {
   letter-spacing: -0.03em;
 }
 .reviews-heading > a {
-  font-size: 10px;
+  font-size: 14px;
   text-decoration: underline;
   text-underline-offset: 4px;
 }
@@ -1134,21 +1140,21 @@ dialog > p:not(.label) {
 }
 .review-grid figcaption {
   flex-shrink: 0;
-  font-size: 10px;
+  font-size: 14px;
   color: var(--secondary);
   margin-top: 20px;
   line-height: 1.8;
 }
 .review-grid time {
   display: block;
-  font-size: 9px;
+  font-size: 14px;
 }
 .review-grid blockquote:focus-visible {
   outline: 2px solid currentColor;
   outline-offset: 4px;
 }
 .reviews-source {
-  font-size: 9px;
+  font-size: 14px;
   color: var(--muted);
   margin: 30px 0 0;
 }
@@ -1179,7 +1185,7 @@ dialog > p:not(.label) {
     margin-top: 13px;
   }
   .reviews-source {
-    font-size: 8px;
+    font-size: 14px;
   }
 }
 
@@ -1195,10 +1201,10 @@ dialog > p:not(.label) {
   .review-grid.review-track { grid-auto-columns: 100%; }
 }
 .review-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 24px; }
-.review-controls button { min-height: 44px; min-width: 44px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 4px; background: transparent; color: inherit; font: inherit; font-size: 12px; cursor: pointer; }
+.review-controls button { min-height: 44px; min-width: 44px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 4px; background: transparent; color: inherit; font: inherit; font-size: 14px; cursor: pointer; }
 .review-controls button:hover { border-color: currentColor; }
 .review-controls button:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
-.review-position { font-size: 12px; color: var(--secondary); }
+.review-position { font-size: 14px; color: var(--secondary); }
 
 .expertise-meta li a {
   display: inline-flex;
@@ -1229,7 +1235,7 @@ dialog > p:not(.label) {
   .solution-hero { padding-top: 64px; padding-bottom: 80px; }
 }
 
-@media (max-width: 760px) {
+@media (max-width: 1100px) {
   .solution-page {
     padding-top: 88px;
   }
@@ -1326,4 +1332,89 @@ dialog > p:not(.label) {
   html:not(.menu-ready) .header nav {
     flex-wrap: wrap;
   }
+}
+
+/* Repères visuels et textes courants. */
+.ui-icon {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.header nav a,
+.contact-bottom > a,
+.assistant-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+}
+.header nav a,
+.hero-baseline,
+.explore,
+.assistant-trigger,
+.contact-bottom,
+.contact-bottom p,
+.expertise-meta,
+.chat-log,
+.about-bottom p {
+  font-size: 16px;
+  line-height: 1.5;
+}
+.contact-map {
+  margin-top: 32px;
+}
+.contact-map-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 24px;
+  margin-bottom: 16px;
+}
+.contact-map-heading h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 400;
+}
+.contact-map-heading a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  font-size: 16px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.contact-map iframe {
+  display: block;
+  width: 100%;
+  height: 280px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--paper);
+  color-scheme: light;
+}
+.contact-title h2 { min-width: 0; }
+.footer-links button { min-height: 44px; }
+.footer-links { flex-wrap: wrap; gap: 16px; }
+@media (max-width: 1100px) {
+  .menu-ready .header nav a { justify-content: flex-start; }
+  .menu-ready .header nav a > span { margin-left: auto; }
+  .nav-service > span { margin-left: auto; }
+  html:not(.menu-ready) .header nav { gap: 16px; }
+}
+@media (max-width: 760px) {
+  .contact-title h2 { font-size: clamp(36px, 10vw, 72px); }
+  .footer { flex-wrap: wrap; }
+}
+@media (max-width: 480px) {
+  .contact-bottom { grid-template-columns: 1fr; gap: 16px; }
+  .hero-baseline { grid-template-columns: 1fr; gap: 16px; }
+  .hero-baseline .assistant-trigger { grid-column: 1; grid-row: auto; justify-self: start; }
+  .hero-baseline .explore { justify-self: start; margin: 0; }
 }

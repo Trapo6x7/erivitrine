@@ -3,7 +3,7 @@ const $ = (s, root = document) => root.querySelector(s);
 
 const menuToggle = $(".menu-toggle");
 const mainNav = $("#main-nav");
-const mobileMenu = matchMedia("(max-width: 760px)");
+const mobileMenu = matchMedia("(max-width: 1100px)");
 function setMenu(open) {
   menuToggle.setAttribute("aria-expanded", String(open));
   menuToggle.setAttribute("aria-label", open ? "Fermer la navigation" : "Ouvrir la navigation");
@@ -139,109 +139,62 @@ document.querySelectorAll("dialog").forEach((dialog) => {
       dialog.close();
   });
 });
-const answers = {
-  informatique: {
-    text: "Nous accompagnons la maintenance de vos postes, serveurs et logiciels. Parlons de vos équipements et de votre besoin.",
-    href: "#expertises",
-    label: "Explorer nos expertises",
-    section: 0,
-  },
-  cloud: {
-    text: "Sauvegarde, protection des postes et e-mails, hébergement et travail à distance : nous étudions votre environnement pour définir une solution adaptée.",
-    href: "#expertises",
-    label: "Cloud & sécurité",
-    section: 1,
-  },
-  developpement: {
-    text: "Un site web, une application métier ou une connexion entre vos logiciels ? Nous pouvons étudier votre idée avec vous.",
-    href: "#expertises",
-    label: "Notre approche du développement",
-    section: 6,
-  },
-  assistance: {
-    text: "Déjà client ? Retrouvez le portail d’assistance, ou appelez le 04 77 23 91 70. Cette démo ne crée pas de ticket.",
-    href: "https://e-r-i.freshdesk.com/",
-    label: "Rejoindre l’assistance",
-  },
-  contact: {
-    text: "Vous pouvez nous joindre au 04 77 23 91 70 ou à contact@e-r-i.fr. Nous sommes au 4 rue Jean Jaurès à Roanne.",
-    href: "#contact",
-    label: "Nos coordonnées",
-  },
-  unknown: {
-    text: "Je suis une démonstration avec des réponses préparées. Pour préciser une offre, un tarif ou un délai, le mieux est d’échanger avec l’équipe.",
-    href: "#contact",
-    label: "Parler à E-R.I",
-  },
-};
 const log = $("#chat-log");
-function addMessage(text, kind, answer) {
+const chatInput = $("#chat-input");
+const chatNote = $(".chat-note");
+const chatControls = chat.querySelectorAll(".chat-choices button, #chat-form button");
+const conversation = [];
+let chatPending = false;
+function addMessage(text, kind) {
   const node = document.createElement("div");
   node.className = `message ${kind}`;
   node.textContent = text;
-  if (answer) {
-    const a = document.createElement("a");
-    a.href = answer.href;
-    if (answer.href === "#expertises" && !$("#expertises"))
-      a.href = "index.html#expertises";
-    a.textContent = answer.label + " ↗";
-    if (answer.href.startsWith("#"))
-      a.addEventListener("click", () => {
-        if (answer.section !== undefined) {
-          document
-            .querySelectorAll(".expertise")
-            .forEach((d, i) => (d.open = i === answer.section));
-        }
-        chat.close();
-      });
-    else {
-      a.target = "_blank";
-      a.rel = "noopener";
-    }
-    node.append(a);
-  }
   log.append(node);
   while (log.children.length > 24) log.firstElementChild.remove();
   log.scrollTop = log.scrollHeight;
 }
-function reply(text, topic) {
+async function reply(text) {
+  if (chatPending || !text) return;
+  chatPending = true;
+  chatControls.forEach((button) => { button.disabled = true; });
+  chatInput.readOnly = true;
+  chatNote.textContent = "R\u00e9ponse en cours\u2026";
+  log.setAttribute("aria-busy", "true");
   addMessage(text, "user");
-  const answer = answers[topic] || answers.unknown;
-  addMessage(answer.text, "bot", answer);
+  const messages = [...conversation.slice(-4), { role: "user", content: text }];
+  try {
+    const response = await fetch("api/chat.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ messages }),
+      signal: AbortSignal.timeout(30000),
+    });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok || typeof data.reply !== "string" || !data.reply.trim()) {
+      throw new Error(typeof data.error === "string" ? data.error : "Assistant indisponible. R\u00e9essayez ou appelez le 04 77 23 91 70.");
+    }
+    addMessage(data.reply, "bot");
+    conversation.push({ role: "user", content: text }, { role: "assistant", content: data.reply });
+    conversation.splice(0, Math.max(0, conversation.length - 4));
+    chatInput.value = "";
+  } catch (error) {
+    addMessage(error.name === "TimeoutError" ? "La r\u00e9ponse prend trop de temps. R\u00e9essayez." : error instanceof TypeError ? "Connexion impossible. R\u00e9essayez ou appelez le 04 77 23 91 70." : error.message, "bot");
+    chatInput.value = text;
+  } finally {
+    chatPending = false;
+    chatControls.forEach((button) => { button.disabled = false; });
+    chatInput.readOnly = false;
+    log.setAttribute("aria-busy", "false");
+    chatNote.textContent = "Assistant IA \u00b7 Ne partagez aucune donn\u00e9e sensible.";
+    if (chat.open) chatInput.focus();
+  }
 }
-$(".chat-choices")
-  .querySelectorAll("button")
-  .forEach((b) =>
-    b.addEventListener("click", () => reply(b.textContent, b.dataset.topic)),
-  );
-function classify(text) {
-  const s = text
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .toLowerCase();
-  if (/prix|tarif|devis|cout|delai/.test(s)) return "unknown";
-  if (/panne|assistance|support|probleme|ticket/.test(s)) return "assistance";
-  if (/site|web|application|develop|api|code/.test(s)) return "developpement";
-  if (
-    /cloud|secur|sauvegarde|virus|donnee|mailinblack|heberg|distance|teletravail/.test(
-      s,
-    )
-  )
-    return "cloud";
-  if (/maint|parc|infoger|ordinateur|logiciel|compta|ebp|microsoft/.test(s))
-    return "informatique";
-  if (/contact|appel|horaire|adresse|roanne|telephone|bonjour|salut/.test(s))
-    return "contact";
-  return "unknown";
-}
-$("#chat-form").addEventListener("submit", (e) => {
-  e.preventDefault();
-  const input = $("#chat-input"),
-    text = input.value.trim();
-  if (!text) return;
-  reply(text, classify(text));
-  input.value = "";
-  input.focus();
+$(".chat-choices").querySelectorAll("button").forEach((button) =>
+  button.addEventListener("click", () => reply(button.textContent.trim())),
+);
+$("#chat-form").addEventListener("submit", (event) => {
+  event.preventDefault();
+  reply(chatInput.value.trim());
 });
 // Compatibilité : un seul accordéon ouvert, même sans prise en charge de details[name].
 document.querySelectorAll(".expertise").forEach((detail) =>

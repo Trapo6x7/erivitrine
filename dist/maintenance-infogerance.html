@@ -126,11 +126,14 @@
         </button>
       <button class="menu-toggle" type="button" aria-label="Ouvrir la navigation" aria-expanded="false" aria-controls="main-nav" hidden><span class="menu-icon" aria-hidden="true"></span></button>
       <nav id="main-nav" aria-label="Navigation principale">
-        <a href="index.html#expertises">Expertises</a><a href="index.html#apropos">À propos</a
+        <a href="index.html#expertises"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Expertises</a><a href="index.html#apropos"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="9" cy="7" r="3"/><path d="M3 21v-3a6 6 0 0 1 12 0v3M16 4a3 3 0 0 1 0 6m2 4a5 5 0 0 1 3 4v3"/></svg>À propos</a
         ><a href="#contact" class="nav-contact"
-          >Contact <span aria-hidden="true">↗</span></a
+          ><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 6 9 7 9-7"/></svg>Contact <span aria-hidden="true">↗</span></a
         >
     
+
+        <a class="nav-service" href="https://e-r-i.freshdesk.com/" target="_blank" rel="noopener"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 14v-3a8 8 0 0 1 16 0v3M4 12H3v6h4v-6Zm16 0h1v6h-4v-6ZM20 18v2h-8"/></svg>Assistance <span aria-hidden="true">&#8599;</span></a>
+        <a class="nav-service" href="https://cloud.e-r-i.fr/" target="_blank" rel="noopener"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="4"/><path d="M4 21v-2a8 8 0 0 1 16 0v2"/></svg>Espace client <span aria-hidden="true">&#8599;</span></a>
       </nav>
     </header>
     <main id="contenu" class="solution-page">
@@ -152,24 +155,35 @@
       >
         <p class="label">03 / Et maintenant ?</p>
         <a class="contact-title" href="mailto:contact@e-r-i.fr"
-          ><h2 id="contact-title">On se parle ?</h2>
+          ><h2 id="contact-title">Parlons de votre projet.</h2>
           <span aria-hidden="true">↗</span></a
         >
         <div class="contact-bottom">
-          <a href="mailto:contact@e-r-i.fr">contact@e-r-i.fr</a
-          ><a href="tel:+33477239170">04 77 23 91 70</a>
+          <a href="mailto:contact@e-r-i.fr"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 6 9 7 9-7"/></svg>contact@e-r-i.fr</a
+          ><a href="tel:+33477239170"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 3 2 5-3 2a14 14 0 0 0 7 7l2-3 5 2v3a2 2 0 0 1-2 2A18 18 0 0 1 3 5a2 2 0 0 1 2-2Z"/></svg>04 77 23 91 70</a>
           <p>4 rue Jean Jaurès<br />42300 Roanne</p>
+        </div>
+        <div class="contact-map">
+          <div class="contact-map-heading">
+             
+            <a href="https://www.google.com/maps/dir/?api=1&amp;destination=4+rue+Jean+Jaur%C3%A8s%2C+42300+Roanne" target="_blank" rel="noopener noreferrer">Itin&#233;raire <span aria-hidden="true">&#8599;</span></a>
+          </div>
+          <iframe
+            title="Localisation E-R.I : 4 rue Jean Jaur&#232;s, 42300 Roanne"
+            src="https://www.google.com/maps?q=4+rue+Jean+Jaur%C3%A8s%2C+42300+Roanne&amp;z=16&amp;output=embed"
+            width="1200"
+            height="280"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen
+          ></iframe>
         </div>
       </section>
     </main>
     <footer class="footer page-pad">
       <span>E—R.I © <span id="year">2026</span></span>
       <div class="footer-links">
-        <a href="https://e-r-i.freshdesk.com/" target="_blank" rel="noopener"
-          >Assistance ↗</a
-        ><a href="https://cloud.e-r-i.fr/" target="_blank" rel="noopener"
-          >Espace client ↗</a
-        ><button id="privacy-open">Confidentialité</button>
+        <button id="privacy-open">Confidentialité</button>
       </div>
       <button class="back-top" id="back-top" aria-label="Revenir en haut">
         ↑
@@ -208,7 +222,7 @@
           autocomplete="off"
         /><button type="submit" aria-label="Envoyer la question">↗</button>
       </form>
-      <p class="chat-note">Démo d’orientation · Ollama non connecté.</p>
+      <p class="chat-note" role="status">Assistant IA · Ne partagez aucune donnée sensible.</p>
     </dialog>
     <dialog id="privacy-dialog" aria-labelledby="privacy-title">
       <button class="close-dialog" aria-label="Fermer">×</button>
@@ -217,8 +231,9 @@
       <p>
         Cette maquette ne contient pas de suivi publicitaire. Seul votre choix
         de thème est enregistré localement dans votre navigateur. L’assistant
-        utilise des réponses préparées ; ses échanges restent dans la mémoire de
-        cette page et disparaissent à son rechargement.
+        transmet vos messages et le contexte récent à Groq pour produire ses réponses.
+        L’historique affiché disparaît au rechargement de la page.
+        Ne transmettez aucune donnée confidentielle. Les réponses peuvent contenir des erreurs.
       </p>
       <p>
         Les liens e-mail ouvrent votre messagerie. Aucun message n’est envoyé
