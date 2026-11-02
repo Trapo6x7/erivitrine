@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>E-R.I | Infogérance et développement web à Roanne</title>
+    <meta
+      name="description"
+      content="À Roanne depuis 1996, E-R.I accompagne les entreprises : maintenance et infogérance informatique, sauvegarde, cloud et développement web sur mesure."
+    />
+    <link rel="canonical" href="https://www.e-r-i.fr/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:site_name" content="E-R.I" />
+    <meta property="og:title" content="E-R.I | Infogérance et développement web à Roanne" />
+    <meta property="og:description" content="Maintenance informatique, sauvegarde, cloud et développement sur mesure pour les entreprises. À Roanne depuis 1996." />
+    <meta property="og:url" content="https://www.e-r-i.fr/" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="E-R.I | Informatique et développement à Roanne" />
+    <meta name="twitter:description" content="Infogérance, cloud, sauvegarde et développement sur mesure pour les entreprises à Roanne depuis 1996." />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://www.e-r-i.fr/#website",
+            "url": "https://www.e-r-i.fr/",
+            "name": "E-R.I",
+            "inLanguage": "fr-FR",
+            "publisher": { "@id": "https://www.e-r-i.fr/#business" }
+          },
+          {
+            "@type": "LocalBusiness",
+            "@id": "https://www.e-r-i.fr/#business",
+            "name": "E-R.I",
+            "url": "https://www.e-r-i.fr/",
+            "logo": "https://www.e-r-i.fr/assets/logo-symbol-navy.png",
+            "description": "Maintenance et infogérance informatique, cloud, sauvegarde et développement sur mesure pour les entreprises à Roanne depuis 1996.",
+            "telephone": "+33477239170",
+            "email": "contact@e-r-i.fr",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "4 rue Jean Jaurès",
+              "postalCode": "42300",
+              "addressLocality": "Roanne",
+              "addressCountry": "FR"
+            }
+          }
+        ]
+      }
+    </script>
+    <meta name="theme-color" content="#f5f4f0" />
+    <link rel="icon" href="assets/logo-symbol-navy.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.bunny.net" />
+    <link
+      href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      (() => {
+        let theme;
+        try {
+          theme = localStorage.getItem("eri-theme");
+        } catch {}
+        if (theme !== "light" && theme !== "dark")
+          theme = matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+        document.querySelector('meta[name="theme-color"]').content =
+          theme === "dark" ? "#0f1720" : "#f5f4f0";
+        document.querySelector('link[rel="icon"]').href =
+          theme === "dark"
+            ? "assets/logo-symbol-grey.svg"
+            : "assets/logo-symbol-navy.svg";
+      })();
+    </script>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <a href="#contenu" class="skip">Aller au contenu</a>
+    <div class="brand-background" aria-hidden="true">
+      <img src="assets/logo-symbol-grey.svg" alt="" width="102" height="122" />
+    </div>
+    <header class="header">
+      <a class="wordmark" href="#accueil" aria-label="E-R.I — accueil"
+        ><span class="brand-logo" aria-hidden="true"></span></a>
+      <button
+          id="theme-toggle"
+          class="theme-toggle"
+          type="button"
+          aria-label="Activer le mode sombre"
+          aria-pressed="false"
+          title="Activer le mode sombre"
+        >
+          <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M20.5 13.1A8.5 8.5 0 0 1 10.9 3.5a8.5 8.5 0 1 0 9.6 9.6Z"
+            /></svg
+          ><svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" />
+            <path
+              d="M12 2v2m0 16v2M2 12h2m16 0h2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4m0-14.2-1.4 1.4M6.3 17.7l-1.4 1.4"
+            />
+          </svg>
+        </button>
+      <button class="menu-toggle" type="button" aria-label="Ouvrir la navigation" aria-expanded="false" aria-controls="main-nav" hidden><span class="menu-icon" aria-hidden="true"></span></button>
+      <nav id="main-nav" aria-label="Navigation principale">
+        <a href="#expertises">Expertises</a><a href="#apropos">À propos</a
+        ><a href="#contact" class="nav-contact"
+          >Contact <span aria-hidden="true">↗</span></a
+        >
+    
+      </nav>
+    </header>
+    <main id="contenu">
+      <section class="hero page-pad" id="accueil" aria-labelledby="hero-title">
+        <div class="hero-topline">
+          <span>Informatique & développement à Roanne</span
+          ><span class="hero-location">Roanne, France — depuis 1996</span>
+        </div>
+        <div class="hero-composition">
+          <h1 id="hero-title">La technique.<br /><span>L’esprit libre.</span></h1>
+ 
+        </div>
+        <div class="hero-baseline">
+          <p>
+            Vos systèmes entre de bonnes mains.<br />Vos idées, en mouvement.
+          </p>
+          <a href="#expertises" class="explore"
+            >Explorer <span aria-hidden="true">↓</span></a
+          ><button class="assistant-trigger" data-open-chat>
+            Une question ? <span aria-hidden="true">↗</span>
+          </button>
+        </div>
+      </section>
+      <section
+        class="expertises page-pad"
+        id="expertises"
+        aria-labelledby="expertise-title"
+      >
+        <div class="section-intro">
+          <p class="label">01 / Expertises</p>
+          <h2 id="expertise-title">L’essentiel.<br />Bien fait.</h2>
+        </div>
+        <div class="expertise-list">
+          <details class="expertise" name="expertise">
+            <summary>
+              <span class="number">01</span>
+              <h3>Maintenance &amp; infogérance.</h3>
+              <span class="row-description">Votre parc, notre suivi</span><span class="toggle" aria-hidden="true"></span>
+            </summary>
+            <div class="expertise-content">
+              <p>Nous prenons soin de vos postes, serveurs et équipements. Une équipe de proximité pour assister vos collaborateurs et prévenir les incidents.</p>
+              <div class="expertise-meta">
+                <ul><li>Maintenance du parc</li><li>Assistance aux équipes</li><li>Supervision et prévention</li></ul>
+                <a href="maintenance-infogerance.html">Découvrir la solution ↗</a>
+              </div>
+            </div>
+          </details>
+          <details class="expertise" name="expertise">
+            <summary>
+              <span class="number">02</span>
+              <h3>Sauvegarde &amp; hébergement.</h3>
+              <span class="row-description">Vos données, à proximité</span><span class="toggle" aria-hidden="true"></span>
+            </summary>
+            <div class="expertise-content">
+              <p>Protéger vos données et préparer leur récupération. Nos infrastructures à Roanne accueillent vos sauvegardes et vos environnements hébergés.</p>
+              <div class="expertise-meta">
+                <ul><li>Sauvegarde externalisée</li><li>Hébergement à Roanne</li><li>Restauration des données</li></ul>
+                <a href="sauvegarde-hebergement.html">Découvrir la solution ↗</a>
+              </div>
+            </div>
+          </details>
+          <details class="expertise" name="expertise">
+            <summary>
+              <span class="number">03</span>
+              <h3>Logiciels professionnels.</h3>
+              <span class="row-description">Les outils de votre métier</span><span class="toggle" aria-hidden="true"></span>
+            </summary>
+            <div class="expertise-content">
+              <p>Gestion, comptabilité, facturation ou bureautique : nous vous aidons à choisir les logiciels adaptés à votre entreprise.</p>
+              <div class="expertise-meta">
+                <ul><li>Solutions EBP</li><li>Environnements Microsoft</li><li>Protection ESET</li></ul>
+                <a href="solution-logiciels.html">Découvrir la solution ↗</a>
+              </div>
+            </div>
+          </details>
+          <details class="expertise" name="expertise">
+            <summary>
+              <span class="number">04</span>
+              <h3>Virtualisation.</h3>
+              <span class="row-description">Votre bureau dans le cloud</span><span class="toggle" aria-hidden="true"></span>
+            </summary>
+            <div class="expertise-content">
+              <p>Centralisez vos applications et vos fichiers dans un environnement de travail virtuel. Vos équipes retrouvent leurs outils depuis un équipement compatible.</p>
+              <div class="expertise-meta">
+                <ul><li>Postes virtuels</li><li>Administration centralisée</li><li>Déploiement des applications</li></ul>
+                <a href="virtualisation.html">Découvrir la solution ↗</a>
+              </div>
+            </div>
+          </details>
+          <details class="expertise" name="expertise">
+            <summary>
+              <span class="number">05</span>
+              <h3>Solution Connect.</h3>
+              <span class="row-description">Votre bureau vous suit</span><span class="toggle" aria-hidden="true"></span>
+            </summary>
+            <div class="expertise-content">
+              <p>Retrouvez à distance vos logiciels, vos documents et votre messagerie. Nous préparons avec vous le télétravail et la mobilité de vos équipes.</p>
+              <div class="expertise-meta">
+                <ul><li>Accès à distance</li><li>Sessions individuelles</li><li>Sauvegarde et infogérance</li></ul>
+                <a href="solution-connect.html">Découvrir la solution ↗</a>
+              </div>
+            </div>
+          </details>
+          <details class="expertise" name="expertise">
+            <summary>
+              <span class="number">06</span>
+              <h3>Mailinblack.</h3>
+              <span class="row-description">Une messagerie mieux protégée</span><span class="toggle" aria-hidden="true"></span>
+            </summary>
+            <div class="expertise-content">
+              <p>Filtrez les courriers indésirables et renforcez la protection de vos échanges avec Mailinblack. Étudions ensemble les besoins de votre messagerie.</p>
+              <div class="expertise-meta">
+                <ul><li>Filtrage antispam</li><li>Contrôle des expéditeurs</li><li>Protection des emails</li></ul>
+                <a href="mailinblack.html">Découvrir la solution ↗</a>
+              </div>
+            </div>
+          </details>
+          <details class="expertise" name="expertise">
+            <summary>
+              <span class="number">07</span>
+              <h3>Développement.</h3>
+              <span class="row-description">Du sur-mesure, vraiment</span
+              ><span class="toggle" aria-hidden="true"></span>
+            </summary>
+            <div class="expertise-content">
+              <p>
+                Un site, une application métier, des outils qui communiquent.
+                Nous partons de votre façon de travailler pour créer ce qui vous
+                manque.
+              </p>
+              <div class="expertise-meta">
+                <ul>
+                  <li>Sites web</li>
+                  <li>Applications métier</li>
+                  <li>Connexions entre logiciels</li>
+                </ul>
+                <a
+                  href="mailto:contact@e-r-i.fr?subject=Un%20projet%20de%20d%C3%A9veloppement"
+                  >Parlons de votre idée ↗</a
+                >
+              </div>
+            </div>
+          </details>
+        </div>
+      </section>
+      <section
+        class="about page-pad"
+        id="apropos"
+        aria-labelledby="about-title"
+      >
+        <p class="label">02 / E-R.I</p>
+        <div class="about-content">
+          <h2 id="about-title">
+            La bonne technique.<br />Les bonnes personnes.
+          </h2>
+          <div class="about-bottom">
+            <p>
+              À Roanne depuis 1996, nous accompagnons les entreprises dans leur
+              informatique et leurs projets numériques. Comprendre vos usages.
+              Trouver la bonne solution. Rester à vos côtés.
+            </p>
+            <span class="about-signature"
+              >Proches, par nature.<br />Clairs, par conviction.</span
+            >
+          </div>
+          <aside class="reviews" aria-labelledby="reviews-title">
+            <div class="reviews-heading">
+              <h3 id="reviews-title">Ce qu’ils en disent.</h3>
+              <a
+                href="https://magasin.tel/f/e-r-i-6097958/"
+                target="_blank"
+                rel="noopener"
+                >Lire les avis ↗</a
+              >
+            </div>
+            <div class="review-grid" id="review-slides" aria-live="off">
+              <figure>
+                <blockquote cite="https://magasin.tel/f/e-r-i-6097958/">
+                  Les prestations et le service client chez E-R.I est premium.
+                  L&#39;ensemble de l&#39;&#233;quipe fait preuve de
+                  professionnalisme et de r&#233;activit&#233; pour
+                  r&#233;pondre aux probl&#233;matiques ou aux besoins. Il se
+                  fait rare sur le march&#233; de pouvoir obtenir un technicien
+                  en ligne sans attente, c&#39;est un vrai plus ! Je recommande
+                  fortement leurs outils made in Roanne &#224;
+                  l&#39;exp&#233;rience client tr&#232;s qualitative.
+                </blockquote>
+                <figcaption>
+                  COMIGO<time datetime="2024-10-21">21 octobre 2024</time>
+                </figcaption>
+              </figure>
+              <figure>
+                <blockquote cite="https://magasin.tel/f/e-r-i-6097958/">
+                  Je travaille avec ERI pour la sauvegarde de mes donn&#233;es,
+                  mais ce que j’appr&#233;cie le plus c’est leur
+                  r&#233;activit&#233; et leur professionnalisme toujours dans
+                  la bonne humeur !
+                </blockquote>
+                <figcaption>
+                  Laurency Stéphane<time datetime="2024-06-09"
+                    >9 juin 2024</time
+                  >
+                </figcaption>
+              </figure>
+              <figure>
+                <blockquote cite="https://magasin.tel/f/e-r-i-6097958/">
+                  Tr&#232;s bon prestataire. L&#39;outils connect est tr&#232;s
+                  pratique au quotidien. La sauvegarde de nos donn&#233;es de
+                  mani&#232;re s&#233;curis&#233;e nous permet de mieux dormir
+                  la nuit. Contactez les vous ne le regretterez pas.
+                </blockquote>
+                <figcaption>
+                  Thomas Derue<time datetime="2023-11-24"
+                    >24 novembre 2023</time
+                  >
+                </figcaption>
+              </figure>
+              <figure>
+                <blockquote cite="https://magasin.tel/f/e-r-i-6097958/">
+                  Un grand merci &#224; Richard pour avoir orchestr&#233;
+                  l&#39;installation de ma baie de brassage. Mon r&#233;seau
+                  ressemble d&#233;sormais &#224; une œuvre d&#39;art
+                  organis&#233;e. Chapeau bas pour une performance impeccable!
+                </blockquote>
+                <figcaption>
+                  Nicolas Chauris<time datetime="2023-10-19"
+                    >19 octobre 2023</time
+                  >
+                </figcaption>
+              </figure>
+              <figure>
+                <blockquote cite="https://magasin.tel/f/e-r-i-6097958/">
+                  J&#39;ai r&#233;cemment fait appel &#224; ERI pour leurs
+                  services de sauvegarde de donn&#233;es et je suis
+                  extr&#234;mement satisfait de l&#39;exp&#233;rience. Leur
+                  &#233;quipe professionnelle et r&#233;active a su
+                  r&#233;pondre &#224; toutes mes pr&#233;occupations et a mis
+                  en place une solution de sauvegarde sur mesure qui
+                  correspondait parfaitement &#224; mes besoins. Je me sens en
+                  s&#233;curit&#233; en sachant que mes donn&#233;es sont entre
+                  de bonnes mains.
+                </blockquote>
+                <figcaption>
+                  Mathieu Campanha<time datetime="2023-10-18"
+                    >18 octobre 2023</time
+                  >
+                </figcaption>
+              </figure>
+              <figure>
+                <blockquote cite="https://magasin.tel/f/e-r-i-6097958/">
+                  Richard est un excellent conseiller en informatique, il sait
+                  trouver la solution qui convient le mieux Ses services me font
+                  gagner du temps au quotidien Un grand merci!
+                </blockquote>
+                <figcaption>
+                  Victor Traclet<time datetime="2023-10-18"
+                    >18 octobre 2023</time
+                  >
+                </figcaption>
+              </figure>
+              <figure>
+                <blockquote cite="https://magasin.tel/f/e-r-i-6097958/">
+                  Les Pro du d&#233;pannage avec un budget serr&#233; Merci,
+                  m&#233;rite d&#39; &#234;tre connus
+                </blockquote>
+                <figcaption>
+                  agnes verchery<time datetime="2023-09-12"
+                    >12 septembre 2023</time
+                  >
+                </figcaption>
+              </figure>
+              <figure>
+                <blockquote cite="https://magasin.tel/f/e-r-i-6097958/">
+                  La courtoisie n emp&#234;che pas le professionnalisme... Une
+                  adresse &#224; recommander... Merci &#224; toute
+                  l&#39;&#233;quipe...
+                </blockquote>
+                <figcaption>
+                  roseline favre<time datetime="2023-05-24">24 mai 2023</time>
+                </figcaption>
+              </figure>
+            </div>
+            <div class="review-controls" hidden>
+              <button
+                type="button"
+                data-review="previous"
+                aria-controls="review-slides"
+                aria-label="Avis précédents"
+              >
+                ←
+              </button>
+              <button
+                type="button"
+                data-review="pause"
+                aria-controls="review-slides"
+                aria-label="Mettre en pause"
+                title="Mettre en pause"
+              >
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M4 2h3v12H4zm5 0h3v12H9z" /></svg>
+              </button>
+              <button
+                type="button"
+                data-review="next"
+                aria-controls="review-slides"
+                aria-label="Avis suivants"
+              >
+                →
+              </button>
+              <span class="review-position" role="status"></span>
+            </div>
+            <p class="reviews-source">
+              Sélection d’avis Google 5 étoiles repris par
+              <a
+                href="https://magasin.tel/f/e-r-i-6097958/"
+                target="_blank"
+                rel="noopener"
+                >Magasin.tel</a
+              >. Vérifiés le 2 novembre 2026 ; mise à jour manuelle.
+            </p>
+          </aside>
+        </div>
+      </section>
+      <section
+        class="contact page-pad"
+        id="contact"
+        aria-labelledby="contact-title"
+      >
+        <p class="label">03 / Et maintenant ?</p>
+        <a class="contact-title" href="mailto:contact@e-r-i.fr"
+          ><h2 id="contact-title">On se parle ?</h2>
+          <span aria-hidden="true">↗</span></a
+        >
+        <div class="contact-bottom">
+          <a href="mailto:contact@e-r-i.fr">contact@e-r-i.fr</a
+          ><a href="tel:+33477239170">04 77 23 91 70</a>
+          <p>4 rue Jean Jaurès<br />42300 Roanne</p>
+        </div>
+      </section>
+    </main>
+    <footer class="footer page-pad">
+      <span>E—R.I © <span id="year">2026</span></span>
+      <div class="footer-links">
+        <a href="https://e-r-i.freshdesk.com/" target="_blank" rel="noopener"
+          >Assistance ↗</a
+        ><a href="https://cloud.e-r-i.fr/" target="_blank" rel="noopener"
+          >Espace client ↗</a
+        ><button id="privacy-open">Confidentialité</button>
+      </div>
+      <button class="back-top" id="back-top" aria-label="Revenir en haut">
+        ↑
+      </button>
+    </footer>
+    <dialog id="chat-dialog" class="chat-dialog" aria-labelledby="chat-title">
+      <header class="chat-header">
+        <div>
+          <span class="label">E—R.I / Assistant</span>
+          <h2 id="chat-title">Un coup de main ?</h2>
+        </div>
+        <button class="close-dialog" aria-label="Fermer l’assistant">×</button>
+      </header>
+      <div
+        class="chat-log"
+        id="chat-log"
+        role="log"
+        aria-live="polite"
+        aria-relevant="additions"
+      >
+        <div class="message bot">Bonjour. Quel est votre besoin ?</div>
+      </div>
+      <div class="chat-choices">
+        <button data-topic="informatique">Informatique</button
+        ><button data-topic="cloud">Cloud & sécurité</button
+        ><button data-topic="developpement">Développement</button
+        ><button data-topic="assistance">Assistance</button>
+      </div>
+      <form id="chat-form">
+        <label for="chat-input" class="sr-only">Votre question</label
+        ><input
+          id="chat-input"
+          placeholder="Votre question…"
+          required
+          maxlength="500"
+          autocomplete="off"
+        /><button type="submit" aria-label="Envoyer la question">↗</button>
+      </form>
+      <p class="chat-note">Démo d’orientation · Ollama non connecté.</p>
+    </dialog>
+    <dialog id="privacy-dialog" aria-labelledby="privacy-title">
+      <button class="close-dialog" aria-label="Fermer">×</button>
+      <p class="label">À propos de ce premier jet</p>
+      <h2 id="privacy-title">Confidentialité.</h2>
+      <p>
+        Cette maquette ne contient pas de suivi publicitaire. Seul votre choix
+        de thème est enregistré localement dans votre navigateur. L’assistant
+        utilise des réponses préparées ; ses échanges restent dans la mémoire de
+        cette page et disparaissent à son rechargement.
+      </p>
+      <p>
+        Les liens e-mail ouvrent votre messagerie. Aucun message n’est envoyé
+        automatiquement. La police Figtree est chargée depuis Bunny Fonts.
+      </p>
+      <p>
+        Les informations légales et la politique de confidentialité finales
+        seront à compléter avant une ouverture publique.
+      </p>
+    </dialog>
+  </body>
+</html>

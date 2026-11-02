@@ -1,0 +1,6 @@
+RedirectMatch 301 ^/index\.php/nos-solutions-pour-entreprises/maintenance-infogerance/?$ /maintenance-infogerance.html
+RedirectMatch 301 ^/index\.php/nos-solutions-pour-entreprises/sauvegarde-hebergement/?$ /sauvegarde-hebergement.html
+RedirectMatch 301 ^/index\.php/nos-solutions-pour-entreprises/solution-logiciels/?$ /solution-logiciels.html
+RedirectMatch 301 ^/index\.php/nos-solutions-pour-entreprises/virtualisation/?$ /virtualisation.html
+RedirectMatch 301 ^/index\.php/nos-solutions-pour-entreprises/solution-connect/?$ /solution-connect.html
+RedirectMatch 301 ^/index\.php/nos-solutions-pour-entreprises/mailinblack/?$ /mailinblack.html
