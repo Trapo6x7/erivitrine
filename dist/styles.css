@@ -631,15 +631,6 @@ dialog > p:not(.label) {
     transform: translateY(0);
   }
 }
-@media (max-height: 850px) and (min-width: 761px) {
-  .hero {
-    min-height: 730px;
-    padding-top: 145px;
-  }
-  .hero h1 {
-    padding-block: 45px;
-  }
-}
 @media (min-width: 1800px) {
   :root {
     --gutter: 5vw;
@@ -675,6 +666,20 @@ dialog > p:not(.label) {
   .contact-bottom {
     grid-template-columns: 1fr 1fr 1fr;
     font-size: 12px;
+  }
+}
+@media (min-width: 761px) {
+  .hero {
+    min-height: calc(100vh - 112px);
+    min-height: calc(100svh - 112px);
+    padding-top: 24px;
+    padding-bottom: 32px;
+  }
+  .hero-composition {
+    margin-block: 32px;
+  }
+  .hero h1 {
+    font-size: clamp(40px, min(10.9vw, 22svh), 170px);
   }
 }
 @media (max-width: 760px) {
