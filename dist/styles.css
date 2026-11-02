@@ -707,9 +707,13 @@ dialog > p:not(.label) {
     margin-left: 4px;
   }
   .hero {
+    display: grid;
+    grid-template-rows: auto minmax(min-content, 1fr) auto;
+    gap: 16px;
     height: auto;
-    min-height: min(100svh, 800px);
-    padding-top: 120px;
+    min-height: calc(100vh - 88px);
+    min-height: calc(100svh - 88px);
+    padding-top: 12px;
     padding-bottom: 32px;
   }
   .hero-topline {
@@ -727,12 +731,14 @@ dialog > p:not(.label) {
     padding-block: 0;
   }
   .hero-composition {
-    display: block;
-    flex: initial;
-    margin: auto 0;
-    padding-block: 48px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: center;
+    margin: 0;
+    padding-block: 16px;
   }
   .hero-composition h1 {
+    grid-column: 1;
     font-size: clamp(40px, 13.5vw, 100px);
     left: 0;
   }
@@ -747,12 +753,14 @@ dialog > p:not(.label) {
     opacity: calc(var(--logo-opacity) * 0.5);
   }
   .hero-baseline {
+    grid-template-rows: auto auto;
     grid-template-columns: 1fr 1fr;
     font-size: 14px;
     gap: 24px 16px;
   }
   .hero-baseline p {
     grid-column: 1 / -1;
+    grid-row: 1;
     font-size: 16px;
     line-height: 1.5;
   }
@@ -766,6 +774,7 @@ dialog > p:not(.label) {
   }
   .assistant-trigger {
     grid-column: 2;
+    grid-row: 2;
     justify-self: end;
     font-size: 14px;
     text-align: right;
@@ -775,8 +784,8 @@ dialog > p:not(.label) {
     margin-left: 10px;
   }
   .expertises {
-    padding-top: 80px;
-    padding-bottom: 85px;
+    padding-top: 48px;
+    padding-bottom: 32px;
   }
   .section-intro {
     display: block;
@@ -834,8 +843,8 @@ dialog > p:not(.label) {
   }
   .about {
     display: block;
-    padding-top: 30px;
-    padding-bottom: 85px;
+    padding-top: 32px;
+    padding-bottom: 48px;
   }
   .about > .label {
     margin-bottom: 35px;
@@ -858,8 +867,8 @@ dialog > p:not(.label) {
     font-size: 10px;
   }
   .contact {
-    padding-top: 55px;
-    padding-bottom: 55px;
+    padding-top: 48px;
+    padding-bottom: 48px;
   }
   .contact-title {
     margin-top: 45px;
@@ -1221,6 +1230,14 @@ dialog > p:not(.label) {
   }
   .header {
     height: 88px;
+    position: sticky;
+    top: 0;
+  }
+  .wordmark > .brand-logo {
+    width: 44px;
+    aspect-ratio: 1;
+    -webkit-mask-image: url("assets/logo-symbol-navy.svg");
+    mask-image: url("assets/logo-symbol-navy.svg");
   }
   .menu-ready .menu-toggle {
     display: inline-flex;
