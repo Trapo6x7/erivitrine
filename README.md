@@ -32,20 +32,16 @@ Figtree est chargée depuis Bunny Fonts ; une pile de polices système prend le 
 
 ## Limites du premier jet
 
-- L’assistant utilise un relais PHP vers Groq ; activation décrite ci-dessous.
+- L’assistant utilise des réponses types locales ; fonctionnement décrit ci-dessous.
 - Le contact ouvre la messagerie ; aucun formulaire ni envoi serveur.
 - Offres, textes, liens support et informations légales à valider avant ouverture publique.
 - Aucun témoignage ou résultat client inventé.
 
-## Assistant Groq sur mutualisé PHP
+## Assistant local
 
-Prérequis : PHP 8.1 ou supérieur, extension cURL et accès HTTPS sortant à `api.groq.com`. Publier le contenu de `dist/` dans la racine publique (par exemple `public_html/`), y compris `api/chat.php`. GitHub Pages ne peut pas exécuter ce relais.
+Réponses types fondées sur les pages du site : maintenance, sauvegarde, logiciels, virtualisation, Connect, Mailinblack, développement, assistance, espace client et coordonnées. Les boutons donnent une réponse directe ; la saisie libre est orientée par mots-clés. Les questions non reconnues proposent des exemples et un contact. Aucun tarif, horaire ou délai non publié n’est inventé.
 
-Copier `groq-config.example.php` sous le nom `groq-config.php` **un niveau au-dessus de la racine publique** : par exemple `groq-config.php` à côté de `public_html/`, jamais dedans. Renseigner la clé Groq dans ce fichier privé sur l’hébergement. Ne pas la committer, la placer dans le JavaScript ou l’envoyer dans le chat. Les variables serveur `GROQ_API_KEY` et `GROQ_MODEL`, si disponibles, prennent priorité sur le fichier. Le modèle par défaut est `llama-3.3-70b-versatile` ; il peut être remplacé dans la configuration selon les modèles accessibles au compte.
-
-En local : `php -d display_errors=0 -d display_startup_errors=0 -S 127.0.0.1:8080 -t dist`, puis ouvrir `http://127.0.0.1:8080`. Sans clé, le relais retourne une erreur 503 explicite. Une fois configuré, envoyer une question depuis l’assistant pour vérifier la connexion réelle et les droits du modèle. API utilisée : [Groq Chat Completions](https://console.groq.com/docs/api-reference). Le fichier `api/.user.ini` masque les erreurs PHP dans les réponses sous PHP-FPM/CGI ; sous Wamp avec le module Apache, désactiver aussi `display_errors` et `display_startup_errors` dans la configuration PHP pour éviter que des avertissements de démarrage corrompent le JSON.
-
-Le navigateur conserve deux échanges récents en mémoire et les transmet avec la question. Le serveur impose les rôles et le contexte E-R.I, limite le corps à 16 Ko, la réponse à 600 tokens et l’appel à 25 secondes. Aucun historique n’est enregistré par le relais. Un fichier temporaire partagé, hors racine publique, limite les appels à 10 par minute et par IP et 60 au total. Le répertoire temporaire PHP doit être accessible en écriture. Derrière un proxy, `REMOTE_ADDR` peut représenter plusieurs visiteurs ; aucun en-tête IP fourni par le client n’est considéré fiable. Ces limites ne remplacent pas les plafonds de consommation du compte Groq.
+Aucune clé API, aucun LLM et aucun serveur PHP ne sont nécessaires. Les messages restent en mémoire dans le navigateur. Les liens dirigent vers les pages pertinentes ou le portail d’assistance. Le fichier privé `groq-config.php`, s’il existe encore, n’est plus utilisé.
 
 ## Fichiers
 

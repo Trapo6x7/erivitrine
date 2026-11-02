@@ -217,13 +217,16 @@ img {
   object-fit: cover;
   object-position: left center;
 }
+.hero #hero-title {
+  font-size: clamp(28px, 8.5vw, 144px);
+}
 .hero h1 > span {
   display: inline-block;
   padding-left: 10.1vw;
 }
 .hero-baseline {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 2fr 1fr 1fr;
   align-items: end;
   gap: 20px;
   font-size: 14px;
@@ -231,6 +234,11 @@ img {
 .hero-baseline p {
   margin: 0;
   line-height: 1.6;
+}
+.about-attribution {
+  display: inline-block;
+  margin-top: 12px;
+  font-weight: 500;
 }
 .explore {
   display: flex;
@@ -1124,16 +1132,12 @@ dialog > p:not(.label) {
 }
 .review-grid figure {
   margin: 0;
-  height: 280px;
   display: flex;
   flex-direction: column;
 }
 .review-grid blockquote {
   margin: 0;
   flex: 1;
-  min-height: 0;
-  overflow-y: auto;
-  scrollbar-gutter: stable;
   font-size: clamp(16px, 1.4vw, 20px);
   line-height: 1.5;
   letter-spacing: -0.015em;

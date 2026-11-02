@@ -141,56 +141,70 @@ document.querySelectorAll("dialog").forEach((dialog) => {
 });
 const log = $("#chat-log");
 const chatInput = $("#chat-input");
-const chatNote = $(".chat-note");
-const chatControls = chat.querySelectorAll(".chat-choices button, #chat-form button");
-const conversation = [];
-let chatPending = false;
-function addMessage(text, kind) {
+const answers = {
+  informatique: ["Nous suivons vos ordinateurs, serveurs et équipements réseau : maintenance, mises à jour, supervision et assistance. Les interventions sur site ou à distance et leurs délais sont définis selon votre contrat.", "maintenance-infogerance.html", "Maintenance et infogérance"],
+  cloud: ["E-R.I propose sauvegarde, hébergement, bureaux virtuels et protection de la messagerie. Cherchez-vous à sauvegarder vos données, travailler à distance ou filtrer les emails ?", "sauvegarde-hebergement.html", "Sauvegarde et hébergement"],
+  sauvegarde: ["E-R.I étudie vos besoins de sauvegarde et d’hébergement pour protéger vos données. Contactez l’équipe pour définir le périmètre et les modalités de récupération adaptés à votre environnement.", "sauvegarde-hebergement.html", "Découvrir la sauvegarde"],
+  logiciels: ["Nous vous accompagnons sur les logiciels EBP (gestion, facturation, comptabilité, paie), Microsoft (bureautique et serveurs) et ESET (protection). Les versions et licences sont étudiées selon vos usages.", "solution-logiciels.html", "Logiciels professionnels"],
+  virtualisation: ["Vos applications et fichiers peuvent être hébergés dans les infrastructures E-R.I à Roanne. Les bureaux virtuels permettent un accès à distance, une administration centralisée et une sauvegarde quotidienne des données.", "virtualisation.html", "Découvrir la virtualisation"],
+  connect: ["Solution Connect permet de retrouver à distance vos logiciels, documents et messagerie dans un poste virtuel. Le déploiement dépend notamment de votre connexion Internet et de votre infrastructure.", "solution-connect.html", "Découvrir Solution Connect"],
+  mailinblack: ["Mailinblack Protect filtre les emails indésirables et les menaces, contrôle les expéditeurs et permet de récupérer les messages légitimes en attente. Le périmètre de protection dépend de votre messagerie et des options retenues.", "mailinblack.html", "Protection de la messagerie"],
+  developpement: ["Un site web, une application métier ou une connexion entre vos logiciels ? E-R.I étudie votre projet de développement sur mesure. Présentez votre besoin à l’équipe pour en discuter.", "index.html#expertises", "Nos expertises"],
+  assistance: ["Pour une panne ou une demande d’assistance, utilisez notre portail ou appelez le 04 77 23 91 70. Cet assistant ne crée pas de ticket et ne consulte pas votre dossier.", "https://e-r-i.freshdesk.com/", "Ouvrir le portail d’assistance"],
+  client: ["Vous pouvez rejoindre votre espace client depuis ce lien. Pour une difficulté d’accès, contactez l’équipe au 04 77 23 91 70. Ne communiquez pas votre mot de passe ici.", "https://cloud.e-r-i.fr/", "Accéder à l’espace client"],
+  devis: ["Les tarifs, délais et engagements dépendent de votre besoin et de votre contrat. Ils ne sont pas précisés sur le site : contactez E-R.I pour obtenir une proposition adaptée.", "mailto:contact@e-r-i.fr", "Demander un devis"],
+  horaires: ["Les horaires ne sont pas indiqués sur le site. Appelez le 04 77 23 91 70 avant votre visite.", "tel:+33477239170", "Appeler E-R.I"],
+  contact: ["Retrouvez-nous au 4 rue Jean Jaurès, 42300 Roanne. Téléphone : 04 77 23 91 70. Email : contact@e-r-i.fr.", "#contact", "Voir les coordonnées et la carte"],
+  bonjour: ["Bonjour ! Je peux vous orienter sur nos services, l’assistance, les devis ou nos coordonnées. Quel sujet vous intéresse ?", "index.html#expertises", "Voir nos services"],
+  unknown: ["Je propose des réponses types à partir du site. Essayez par exemple : sauvegarde, logiciels EBP, télétravail, panne, devis ou adresse. Pour une demande particulière, contactez notre équipe.", "mailto:contact@e-r-i.fr", "Écrire à E-R.I"],
+};
+function classify(text) {
+  const s = text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  if (/panne|assistance|support|probleme|ticket|ne fonctionne|ne marche|bloqu|incident/.test(s)) return "assistance";
+  if (/prix|tarif|devis|cout|combien|delai|engagement/.test(s)) return "devis";
+  if (/horaire|ouvert|fermeture|ferme|rendez.vous/.test(s)) return "horaires";
+  if (/espace client|portail client|mon compte|connexion|mot de passe/.test(s)) return "client";
+  if (/mailinblack|spam|phishing|hameconnage|messagerie|e.?mails?/.test(s)) return "mailinblack";
+  if (/connect|teletravail|travail.*distance/.test(s)) return "connect";
+  if (/virtual|bureau.*distance/.test(s)) return "virtualisation";
+  if (/sauvegard|heberg|donnees|restaur|backup/.test(s)) return "sauvegarde";
+  if (/develop|site (web|internet)|application|sur mesure|\bapi\b/.test(s)) return "developpement";
+  if (/logiciel|ebp|compta|factur|paie|microsoft|eset|licence/.test(s)) return "logiciels";
+  if (/cloud|secur|protection/.test(s)) return "cloud";
+  if (/informatique|maintenance|infoger|ordinateur|serveur|reseau|parc/.test(s)) return "informatique";
+  if (/contact|adresse|telephone|joindre|roanne|venir|situe|localis/.test(s)) return "contact";
+  if (/^(bonjour|salut|bonsoir|hello|merci)[ !.]*$/.test(s)) return "bonjour";
+  return "unknown";
+}
+function addMessage(text, kind, answer) {
   const node = document.createElement("div");
   node.className = `message ${kind}`;
   node.textContent = text;
+  if (answer) {
+    const link = document.createElement("a");
+    link.href = answer[1];
+    link.textContent = answer[2] + " ↗";
+    if (answer[1].startsWith("https://")) {
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+    }
+    link.addEventListener("click", () => chat.close());
+    node.append(link);
+  }
   log.append(node);
   while (log.children.length > 24) log.firstElementChild.remove();
   log.scrollTop = log.scrollHeight;
 }
-async function reply(text) {
-  if (chatPending || !text) return;
-  chatPending = true;
-  chatControls.forEach((button) => { button.disabled = true; });
-  chatInput.readOnly = true;
-  chatNote.textContent = "R\u00e9ponse en cours\u2026";
-  log.setAttribute("aria-busy", "true");
+function reply(text, topic) {
+  if (!text) return;
   addMessage(text, "user");
-  const messages = [...conversation.slice(-4), { role: "user", content: text }];
-  try {
-    const response = await fetch("api/chat.php", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ messages }),
-      signal: AbortSignal.timeout(30000),
-    });
-    const data = await response.json().catch(() => ({}));
-    if (!response.ok || typeof data.reply !== "string" || !data.reply.trim()) {
-      throw new Error(typeof data.error === "string" ? data.error : "Assistant indisponible. R\u00e9essayez ou appelez le 04 77 23 91 70.");
-    }
-    addMessage(data.reply, "bot");
-    conversation.push({ role: "user", content: text }, { role: "assistant", content: data.reply });
-    conversation.splice(0, Math.max(0, conversation.length - 4));
-    chatInput.value = "";
-  } catch (error) {
-    addMessage(error.name === "TimeoutError" ? "La r\u00e9ponse prend trop de temps. R\u00e9essayez." : error instanceof TypeError ? "Connexion impossible. R\u00e9essayez ou appelez le 04 77 23 91 70." : error.message, "bot");
-    chatInput.value = text;
-  } finally {
-    chatPending = false;
-    chatControls.forEach((button) => { button.disabled = false; });
-    chatInput.readOnly = false;
-    log.setAttribute("aria-busy", "false");
-    chatNote.textContent = "Assistant IA \u00b7 Ne partagez aucune donn\u00e9e sensible.";
-    if (chat.open) chatInput.focus();
-  }
+  const answer = answers[topic] || answers[classify(text)];
+  addMessage(answer[0], "bot", answer);
+  chatInput.value = "";
+  if (chat.open) chatInput.focus();
 }
 $(".chat-choices").querySelectorAll("button").forEach((button) =>
-  button.addEventListener("click", () => reply(button.textContent.trim())),
+  button.addEventListener("click", () => reply(button.textContent.trim(), button.dataset.topic)),
 );
 $("#chat-form").addEventListener("submit", (event) => {
   event.preventDefault();
