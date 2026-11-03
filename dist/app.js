@@ -211,14 +211,29 @@ $("#chat-form").addEventListener("submit", (event) => {
   reply(chatInput.value.trim());
 });
 // Compatibilité : un seul accordéon ouvert, même sans prise en charge de details[name].
-document.querySelectorAll(".expertise").forEach((detail) =>
+document.querySelectorAll(".expertise").forEach((detail) => {
+  let openingAnimation;
+  const cancelOpening = () => openingAnimation?.cancel();
+  detail.addEventListener("focusin", cancelOpening);
+  reducedMotion.addEventListener("change", cancelOpening);
   detail.addEventListener("toggle", () => {
-    if (detail.open)
-      document.querySelectorAll(".expertise").forEach((other) => {
-        if (other !== detail) other.open = false;
-      });
-  }),
-);
+    cancelOpening();
+    if (!detail.open) return;
+    document.querySelectorAll(".expertise").forEach((other) => {
+      if (other !== detail) other.open = false;
+    });
+    if (reducedMotion.matches || !detail.animate) return;
+    const height = detail.offsetHeight;
+    const contentHeight = $(".expertise-content", detail).offsetHeight;
+    openingAnimation = detail.animate(
+      [
+        { height: `${height - contentHeight}px`, overflow: "hidden" },
+        { height: `${height}px`, overflow: "hidden" },
+      ],
+      { duration: 350, easing: "ease-out" },
+    );
+  });
+});
 
 // Apparitions propres à chaque section. Sans JavaScript, tout reste visible.
 const motionGroups = [
