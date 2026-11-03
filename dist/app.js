@@ -37,6 +37,10 @@ mobileMenu.addEventListener("change", () => {
   const focusHidden = mobileMenu.matches && mainNav.contains(document.activeElement);
   closeMenu(focusHidden);
 });
+const siteHeader = $(".header");
+const syncHeader = () => siteHeader.classList.toggle("is-scrolled", scrollY > 8);
+addEventListener("scroll", syncHeader, { passive: true });
+syncHeader();
 
 const themeMedia = matchMedia("(prefers-color-scheme: dark)");
 let manualTheme = null;
@@ -211,16 +215,56 @@ $("#chat-form").addEventListener("submit", (event) => {
   reply(chatInput.value.trim());
 });
 // Compatibilité : un seul accordéon ouvert, même sans prise en charge de details[name].
+const expertiseClosers = new Map();
 document.querySelectorAll(".expertise").forEach((detail) => {
-  let openingAnimation;
+  // L’attribut name ferme les autres instantanément ; le script gère l’exclusivité avec animation.
+  detail.removeAttribute("name");
+  let openingAnimation, closingAnimation;
   const cancelOpening = () => openingAnimation?.cancel();
+  // Fermeture : animation inverse de l’ouverture, puis retrait de l’attribut open.
+  const finishClosing = () => {
+    if (!closingAnimation) return;
+    const animation = closingAnimation;
+    closingAnimation = null;
+    detail.open = false;
+    detail.classList.remove("closing");
+    animation.cancel();
+  };
+  const close = () => {
+    if (!detail.open || closingAnimation) return;
+    if (reducedMotion.matches || !detail.animate) {
+      detail.open = false;
+      return;
+    }
+    cancelOpening();
+    const height = detail.offsetHeight;
+    const contentHeight = $(".expertise-content", detail).offsetHeight;
+    detail.classList.add("closing");
+    closingAnimation = detail.animate(
+      [
+        { height: `${height}px`, overflow: "hidden" },
+        { height: `${height - contentHeight}px`, overflow: "hidden" },
+      ],
+      { duration: 350, easing: "ease-in", fill: "forwards" },
+    );
+    closingAnimation.onfinish = finishClosing;
+  };
+  expertiseClosers.set(detail, close);
+  $("summary", detail).addEventListener("click", (event) => {
+    if (!detail.open) return;
+    event.preventDefault();
+    close();
+  });
   detail.addEventListener("focusin", cancelOpening);
-  reducedMotion.addEventListener("change", cancelOpening);
+  reducedMotion.addEventListener("change", () => {
+    cancelOpening();
+    finishClosing();
+  });
   detail.addEventListener("toggle", () => {
     cancelOpening();
     if (!detail.open) return;
-    document.querySelectorAll(".expertise").forEach((other) => {
-      if (other !== detail) other.open = false;
+    expertiseClosers.forEach((closeOther, other) => {
+      if (other !== detail) closeOther();
     });
     if (reducedMotion.matches || !detail.animate) return;
     const height = detail.offsetHeight;
