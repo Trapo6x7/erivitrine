@@ -709,6 +709,7 @@ dialog > p:not(.label) {
   font-weight: 400;
 }
 .chat-dialog {
+  border-radius: 24px;
   width: min(460px, calc(100% - 32px));
   padding: 30px;
 }
