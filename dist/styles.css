@@ -525,13 +525,13 @@ h2 {
 .about-content {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
+  min-width: 0;
 }
 .about-content > h2 {
   grid-area: 1 / 1;
   position: relative;
   z-index: 1;
-  color: var(--about-title-blend);
-  mix-blend-mode: difference;
+  color: var(--ink);
 }
 .about-content > .about-bottom {
   grid-area: 2 / 1;
@@ -543,7 +543,7 @@ h2 {
   grid-area: 1 / 1 / 3 / 2;
   margin: 0 0 0 410px;
   position: relative;
-  border-radius: 28px;
+  border-radius: 0 28px 28px 0;
   overflow: hidden;
 }
 .about-photo img {
@@ -553,17 +553,24 @@ h2 {
   height: 100%;
   object-fit: cover;
 }
+.about-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, var(--paper) 0%, var(--paper) 8%, transparent 95%);
+  pointer-events: none;
+}
 @media (max-width: 1100px) {
   .about-content {
     display: block;
   }
-  .about-content > h2 {
-    color: var(--ink);
-    mix-blend-mode: normal;
+  .about-photo::after {
+    display: none;
   }
   .about-photo {
     aspect-ratio: 16 / 10;
     margin: 32px 0 0;
+    border-radius: 28px;
   }
 }
 .contact {
@@ -1474,6 +1481,12 @@ dialog > p:not(.label) {
   overflow: hidden;
   padding: 8px;
   margin: -8px;
+  touch-action: pan-y pinch-zoom;
+  cursor: grab;
+  user-select: none;
+}
+.review-viewport.is-dragging {
+  cursor: grabbing;
 }
 .review-grid.review-track {
   grid-template-columns: none;

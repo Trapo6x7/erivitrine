@@ -535,6 +535,7 @@ stopSectionMotion();
   let paused = reducedMotion.matches;
   let timer;
   let slideAnimation;
+  let drag;
   const count = () => mobile.matches ? 1 : 2;
   function render(animate = true) {
     const previous = getComputedStyle(grid).transform;
@@ -561,7 +562,7 @@ stopSectionMotion();
     pause.setAttribute("aria-label", label);
     pause.title = label;
     $("path", pause).setAttribute("d", paused ? "M4 2l10 6-10 6z" : "M4 2h3v12H4zm5 0h3v12H9z");
-    if (!paused && !reducedMotion.matches && !document.hidden &&
+    if (!drag && !paused && !reducedMotion.matches && !document.hidden &&
         !section.matches(":hover") && !section.contains(document.activeElement)) {
       timer = setInterval(() => { index = (index + count()) % slides.length; render(); }, 6500);
     }
@@ -575,6 +576,52 @@ stopSectionMotion();
       render();
     }
     schedule();
+  });
+  viewport.addEventListener("pointerdown", (event) => {
+    if (!event.isPrimary || event.button !== 0) return;
+    drag = { id: event.pointerId, x: event.clientX, y: event.clientY, offset: 0, active: false };
+    slideAnimation?.cancel();
+    clearInterval(timer);
+  });
+  viewport.addEventListener("pointermove", (event) => {
+    if (!drag || event.pointerId !== drag.id) return;
+    const dx = event.clientX - drag.x;
+    const dy = event.clientY - drag.y;
+    if (!drag.active) {
+      if (Math.max(Math.abs(dx), Math.abs(dy)) < 8) return;
+      if (Math.abs(dy) > Math.abs(dx)) {
+        drag = undefined;
+        schedule();
+        return;
+      }
+      drag.active = true;
+      viewport.setPointerCapture(event.pointerId);
+      viewport.classList.add("is-dragging");
+    }
+    drag.offset = dx;
+    const step = slides[0].getBoundingClientRect().width + parseFloat(getComputedStyle(grid).columnGap);
+    grid.style.transform = `translateX(${-index * step + dx}px)`;
+  });
+  function finishDrag(event) {
+    if (!drag || event.pointerId !== drag.id) return;
+    const { active, offset, id } = drag;
+    drag = undefined;
+    viewport.classList.remove("is-dragging");
+    if (viewport.hasPointerCapture(id)) viewport.releasePointerCapture(id);
+    if (active) {
+      const threshold = Math.min(80, viewport.clientWidth * 0.15);
+      if (event.type === "pointerup" && Math.abs(offset) >= threshold) {
+        index = (index + (offset < 0 ? count() : -count()) + slides.length) % slides.length;
+      }
+      render();
+    }
+    schedule();
+  }
+  viewport.addEventListener("pointerup", finishDrag);
+  viewport.addEventListener("pointercancel", finishDrag);
+  viewport.addEventListener("lostpointercapture", finishDrag);
+  viewport.addEventListener("pointerleave", (event) => {
+    if (drag && !drag.active) finishDrag(event);
   });
   section.addEventListener("mouseenter", schedule);
   section.addEventListener("mouseleave", schedule);
