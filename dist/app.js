@@ -553,7 +553,7 @@ stopSectionMotion();
         easing: "cubic-bezier(.22, 1, .36, 1)",
       });
     }
-    position.textContent = (index + 1) + "–" + Math.min(index + count(), slides.length) + " / " + slides.length;
+    if (position) position.textContent = (index + 1) + "–" + Math.min(index + count(), slides.length) + " / " + slides.length;
   }
   function schedule() {
     clearInterval(timer);
