@@ -57,7 +57,7 @@ function applyTheme(theme) {
   toggle.setAttribute("aria-label", label);
   toggle.setAttribute("title", label);
   toggle.setAttribute("aria-pressed", String(dark));
-  $('meta[name="theme-color"]').content = dark ? "#0f1720" : "#f5f4f0";
+  $('meta[name="theme-color"]').content = dark ? "#0B1220" : "#f5f4f0";
   $('link[rel="icon"]').href = dark
     ? "assets/logo-symbol-grey.svg"
     : "assets/logo-symbol-navy.svg";
@@ -80,6 +80,84 @@ else themeMedia.addListener(followSystemTheme);
 
 $("#year").textContent = new Date().getFullYear();
 const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
+const heroTitle = $("#hero-title");
+function animateBinaryTitle(title, onComplete = () => {}) {
+  if (reducedMotion.matches) {
+    onComplete();
+    return;
+  }
+  const walker = document.createTreeWalker(title, NodeFilter.SHOW_TEXT);
+  const textNodes = [];
+  while (walker.nextNode()) {
+    if (walker.currentNode.textContent.trim()) textNodes.push(walker.currentNode);
+  }
+  const originalLabel = title.getAttribute("aria-label");
+  title.setAttribute("aria-label", title.textContent.trim().replace(/\s+/gu, " "));
+  const characters = [];
+  const replacements = textNodes.map((node) => {
+    const wrapper = document.createElement("samp");
+    wrapper.className = "binary-parts";
+    wrapper.setAttribute("aria-hidden", "true");
+    node.replaceWith(wrapper);
+    const parts = title === heroTitle ? [node.textContent.trim()] : node.textContent.split(/(\s+)/u);
+    parts.forEach((part) => {
+      if (!part || /^\s+$/u.test(part)) {
+        wrapper.append(part);
+        return;
+      }
+      const text = document.createElement("samp");
+      text.className = "binary-text";
+      text.textContent = part;
+      wrapper.append(text);
+      const overlay = document.createElement("span");
+      overlay.className = "binary-digits";
+      const digit = document.createElement("span");
+      digit.textContent = "0";
+      overlay.append(digit);
+      text.append(overlay);
+      const count = Math.max(1, Math.floor(text.getBoundingClientRect().width / digit.getBoundingClientRect().width));
+      for (let index = 1; index < count; index += 1) {
+        overlay.append(digit.cloneNode(true));
+      }
+      characters.push(...overlay.children);
+    });
+    return { node, wrapper };
+  });
+  let combination = 0;
+  let timer;
+  function restoreTitle() {
+    clearTimeout(timer);
+    replacements.forEach(({ node, wrapper }) => wrapper.replaceWith(node));
+    if (originalLabel === null) title.removeAttribute("aria-label");
+    else title.setAttribute("aria-label", originalLabel);
+    reducedMotion.removeEventListener("change", onMotionChange);
+    onComplete();
+  }
+  function onMotionChange() {
+    if (reducedMotion.matches) restoreTitle();
+  }
+  function showCombination() {
+    characters.forEach((letter) => {
+      letter.textContent = Math.random() < 0.5 ? "0" : "1";
+    });
+    combination += 1;
+    timer = setTimeout(combination < 12 ? showCombination : restoreTitle, 50);
+  }
+  reducedMotion.addEventListener("change", onMotionChange);
+  showCombination();
+}
+if ("IntersectionObserver" in window) {
+  const contactArrow = $(".contact-title > span");
+  if (!reducedMotion.matches) contactArrow?.classList.add("arrow-pending");
+  const titleObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      titleObserver.unobserve(entry.target);
+      animateBinaryTitle(entry.target, () => contactArrow?.classList.remove("arrow-pending"));
+    });
+  }, { threshold: 0.2 });
+  document.querySelectorAll("#contact-title").forEach((title) => titleObserver.observe(title));
+}
 $("#back-top").addEventListener("click", () => {
   $("#accueil").scrollIntoView({
     behavior: reducedMotion.matches ? "instant" : "smooth",
@@ -118,6 +196,9 @@ document.addEventListener("visibilitychange", () => {
 });
 renderDepth();
 const chat = $("#chat-dialog");
+const snakeScript = document.createElement("script");
+snakeScript.src = "snake.js";
+document.head.append(snakeScript);
 document.querySelectorAll("[data-open-chat]").forEach((b) =>
   b.addEventListener("click", () => {
     chat.showModal();
@@ -281,30 +362,14 @@ document.querySelectorAll(".expertise").forEach((detail) => {
 
 // Apparitions propres à chaque section. Sans JavaScript, tout reste visible.
 const motionGroups = [
-  { selector: ".hero-topline", style: "fade", duration: 950 },
-  { selector: ".hero h1", style: "title", duration: 1850, origin: "20% 50%" },
-  { selector: ".hero h1 > span", style: "line", duration: 1550, delay: 180 },
-  { selector: ".hero-baseline", style: "fade", duration: 1300, delay: 270 },
+  { selector: "#hero-title", style: "fade", duration: 1800 },
   {
-    selector: ".expertises .section-intro",
+    selector: ".expertises .section-intro > .label",
     style: "horizontal",
     duration: 1550,
     origin: "left center",
   },
-  {
-    selector: ".expertise",
-    style: "row",
-    duration: 1450,
-    stagger: 130,
-    origin: "left center",
-  },
   { selector: ".about > .label", style: "fade", duration: 950 },
-  {
-    selector: ".about-content > h2",
-    style: "soft",
-    duration: 1700,
-    origin: "left center",
-  },
   {
     selector: ".about-bottom",
     style: "soft",
@@ -312,7 +377,7 @@ const motionGroups = [
     delay: 130,
     origin: "left top",
   },
-  { selector: ".reviews-heading", style: "fade", duration: 1000 },
+  { selector: ".reviews-heading > a", style: "fade", duration: 1000 },
   {
     selector: ".review-grid figure",
     style: "quote",
@@ -320,20 +385,6 @@ const motionGroups = [
     stagger: 160,
   },
   { selector: ".reviews-source", style: "fade", duration: 950 },
-  { selector: ".contact > .label", style: "fade", duration: 950 },
-  {
-    selector: ".contact-title h2",
-    style: "rise",
-    duration: 1950,
-    origin: "left center",
-  },
-  {
-    selector: ".contact-title > span",
-    style: "arrow",
-    duration: 1450,
-    delay: 160,
-  },
-  { selector: ".contact-bottom", style: "fade", duration: 1300, delay: 160 },
 ];
 const motionFrames = {
   fade: [{ opacity: 0 }, { opacity: 1 }],
