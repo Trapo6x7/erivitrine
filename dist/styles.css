@@ -702,7 +702,7 @@ dialog > p:not(.label) {
   font-weight: 400;
 }
 .chat-dialog {
-  width: 460px;
+  width: min(460px, calc(100% - 32px));
   padding: 30px;
 }
 .snake-active > [hidden] {
@@ -1179,13 +1179,27 @@ dialog > p:not(.label) {
     margin-left: auto;
   }
   .chat-dialog {
-    padding: 24px;
+    padding: 20px 16px;
+  }
+  .chat-header {
+    gap: 16px;
+    padding-bottom: 12px;
   }
   .chat-header h2 {
-    font-size: 30px;
+    font-size: 24px;
+    margin: 12px 36px 0 0;
   }
   .chat-log {
-    height: 230px;
+    height: 200px;
+    max-height: 30svh;
+    gap: 14px;
+    padding-block: 16px;
+  }
+  .chat-choices {
+    padding-bottom: 14px;
+  }
+  .chat-note {
+    margin-top: 8px;
   }
   dialog {
     padding: 40px 25px;
