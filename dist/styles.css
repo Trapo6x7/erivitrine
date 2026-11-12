@@ -1,12 +1,13 @@
 :root {
-  --paper: #f5f4f0;
+  --paper: #ffffff;
+  --surface: #ecf2f9;
   --ink: #123e8c;
-  --muted: #123e8c;
-  --line: rgba(15, 32, 51, 0.22);
-  --secondary: #123e8c;
+  --muted: #4e7095;
+  --line: #d5e2f2;
+  --secondary: #2466a0;
   --body-copy: #123e8c;
   --dialog-copy: #123e8c;
-  --location: #123e8c;
+  --location: #2466a0;
   --logo-opacity: 0.65;
   --logo-scrolled: 0.22;
   /* Titre en difference : blanc rend ~--ink sur le fond sombre, #e3b664 (paper - ink) rend --ink sur le fond clair. */
@@ -675,7 +676,7 @@ h2 {
 }
 dialog {
   border: 0;
-  background: var(--paper);
+  background: var(--surface);
   color: var(--ink);
   padding: 50px;
   max-width: 590px;
@@ -1262,6 +1263,7 @@ dialog > p:not(.label) {
 /* Deux thèmes, même composition. */
 :root[data-theme="dark"] {
   --paper: #0B1220;
+  --surface: var(--paper);
   --ink: #eae9e4;
   --muted: #aab3bd;
   --line: rgba(234, 233, 228, 0.24);
@@ -1714,7 +1716,7 @@ dialog > p:not(.label) {
     top: 80px;
     inset-inline: var(--gutter);
     padding: 24px;
-    background: var(--paper);
+    background: var(--surface);
     border: 1px solid var(--line);
     max-height: calc(100svh - 104px);
     overflow-y: auto;

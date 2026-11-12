@@ -57,7 +57,7 @@ function applyTheme(theme) {
   toggle.setAttribute("aria-label", label);
   toggle.setAttribute("title", label);
   toggle.setAttribute("aria-pressed", String(dark));
-  $('meta[name="theme-color"]').content = dark ? "#0B1220" : "#f5f4f0";
+  $('meta[name="theme-color"]').content = dark ? "#0B1220" : "#ffffff";
   $('link[rel="icon"]').href = dark
     ? "assets/logo-symbol-grey.svg"
     : "assets/logo-symbol-navy.svg";
